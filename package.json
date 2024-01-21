@@ -1,29 +1,27 @@
 {
-    "name": "selfish.assets",
-    "version": "1.0.0",
-    "description": "...",
-    "author": "@eatmycode",
-    "private": true,
-    "license": "UNLICENSED",
-    "scripts": {
-      "pull": "git pull && yarn",
-      "prepull": "git checkout main",
-      "postpull": "",
-      "deploy": "sh -c 'git add * && git commit -am \"${0} ${*}\"'",
-      "predeploy": "git checkout main",
-      "postdeploy": "yarn version --minor && git push"
-    },
-    "dependencies": {
-      "canvas": "^2.11.0",
-      "potrace": "^2.1.8",
-      "sharp": "^0.31.3",
-      "sharp-ico": "^0.1.5",
-      "uglify-js": "^3.17.4",
-      "uglifycss": "^0.0.29",
-      "unirest": "^0.6.0"
-    },
-    "repository": "git@github.com:SelfishPixel/assets.git",
-    "devDependencies": {
-    }
-  }
-  
+  "name": "selfish.assets",
+  "version": "1.1.0",
+  "description": "...",
+  "author": "@eatmycode",
+  "private": true,
+  "license": "UNLICENSED",
+  "scripts": {
+    "pull": "git pull && yarn",
+    "prepull": "git checkout main",
+    "postpull": "",
+    "deploy": "sh -c 'git add * && git commit -am \"${0} ${*}\"'",
+    "predeploy": "git checkout main",
+    "postdeploy": "yarn version --minor && git push"
+  },
+  "dependencies": {
+    "canvas": "^2.11.0",
+    "potrace": "^2.1.8",
+    "sharp": "^0.31.3",
+    "sharp-ico": "^0.1.5",
+    "uglify-js": "^3.17.4",
+    "uglifycss": "^0.0.29",
+    "unirest": "^0.6.0"
+  },
+  "repository": "git@github.com:SelfishPixel/assets.git",
+  "devDependencies": {}
+}
