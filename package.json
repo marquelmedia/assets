@@ -7,8 +7,7 @@
   "license": "UNLICENSED",
   "scripts": {
     "pull": "git pull && yarn",
-    "prepull": "git checkout main",
-    "postpull": "",
+    "prepull": "echo \"\n\nAssets\" && git checkout main",
     "deploy": "sh -c 'git add * && git commit -am \"${0} ${*}\"'",
     "predeploy": "git checkout main",
     "postdeploy": "yarn version --minor && git push"
