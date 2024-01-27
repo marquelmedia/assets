@@ -8,12 +8,15 @@
   "scripts": {
     "pull": "git pull && yarn",
     "prepull": "echo \"\n\nAssets\" && git checkout main",
-    "deploy": "sh -c 'git add * && git commit -am \"${0} ${*}\"'",
+    "patch": "sh -c 'git commit -am \"${0} ${*}\"'",
+    "prepatch": "git add .",
+    "postpatch": "yarn version --patch && git push",
+    "deploy": "sh -c 'git add . && git commit -am \"${0} ${*}\"'",
     "predeploy": "git checkout main",
     "postdeploy": "yarn version --minor && git push"
   },
   "dependencies": {
-    "canvas": "^2.11.0",
+    "canvas": "^2.11.2",
     "potrace": "^2.1.8",
     "sharp": "^0.31.3",
     "sharp-ico": "^0.1.5",
