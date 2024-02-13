@@ -6,7 +6,7 @@
   "license": "UNLICENSED",
   "private": true,
   "scripts": {
-    "repo": "echo \"\n\nAssets\"",
+    "repo": "echo -e \"\n\nAssets\"",
     "pull": "git pull && bun install",
     "patch": "sh -c 'echo \"Update ${0} ${*}\" | git commit -aF -'",
     "prepatch": "bun run repo && git add .",
