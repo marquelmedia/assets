@@ -6,12 +6,13 @@
   "license": "UNLICENSED",
   "private": true,
   "scripts": {
+    "repo": "echo \"\n\nAssets\"",
     "pull": "git pull && bun install",
     "patch": "sh -c 'echo \"Update ${0} ${*}\" | git commit -aF -'",
-    "prepatch": "git add .",
+    "prepatch": "bun run repo && git add .",
     "postpatch": "yarn version --patch && git push",
     "deploy": "sh -c 'echo \"Add ${0} ${*}\" | git commit -aF -'",
-    "predeploy": "git add .",
+    "predeploy": "bun run repo && git add .",
     "postdeploy": "yarn version --minor && git push"
   },
   "dependencies": {
