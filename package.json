@@ -1,28 +1,27 @@
 {
   "name": "selfish.assets",
   "version": "1.4.0",
-  "description": "...",
+  "description": "Resources for Selfish Pixel deployments",
   "author": "@eatmycode",
-  "private": true,
   "license": "UNLICENSED",
+  "private": true,
   "scripts": {
-    "pull": "git pull && yarn",
-    "prepull": "echo \"\n\nAssets\" && git checkout main",
-    "patch": "sh -c 'git commit -am \"${0} ${*}\"'",
+    "pull": "git pull && bun install",
+    "patch": "sh -c 'echo \"Update ${0} ${*}\" | git commit -aF -'",
     "prepatch": "git add .",
     "postpatch": "yarn version --patch && git push",
-    "deploy": "sh -c 'git add . && git commit -am \"${0} ${*}\"'",
-    "predeploy": "git checkout main",
+    "deploy": "sh -c 'echo \"Add ${0} ${*}\" | git commit -aF -'",
+    "predeploy": "git add .",
     "postdeploy": "yarn version --minor && git push"
   },
   "dependencies": {
+    "axios": "^1.6.7",
     "canvas": "^2.11.2",
     "potrace": "^2.1.8",
     "sharp": "^0.31.3",
     "sharp-ico": "^0.1.5",
     "uglify-js": "^3.17.4",
-    "uglifycss": "^0.0.29",
-    "unirest": "^0.6.0"
+    "uglifycss": "^0.0.29"
   },
   "repository": "git@github.com:SelfishPixel/assets.git",
   "devDependencies": {}
