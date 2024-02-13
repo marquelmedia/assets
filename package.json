@@ -9,10 +9,10 @@
     "repo": "echo -e \"\n\nAssets\"",
     "pull": "git pull && bun install",
     "patch": "sh -c 'echo \"Update ${0} ${*}\" | git commit -aF -'",
-    "prepatch": "bun run repo && git add .",
+    "prepatch": "bun run --silent repo && git add .",
     "postpatch": "yarn version --patch && git push",
     "deploy": "sh -c 'echo \"Add ${0} ${*}\" | git commit -aF -'",
-    "predeploy": "bun run repo && git add .",
+    "predeploy": "bun run --silent repo && git add .",
     "postdeploy": "yarn version --minor && git push"
   },
   "dependencies": {
