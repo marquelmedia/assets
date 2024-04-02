@@ -8,10 +8,10 @@
   "scripts": {
     "repo": "echo -e \"\n\nAssets\"",
     "pull": "git pull && bun install",
-    "patch": "sh -c 'echo Update ${0} ${*} | git commit -aF -'",
+    "patch": "sh -c 'echo ${0} ${*} | git commit -aF -'",
     "prepatch": "bun run --silent repo && git add .",
     "postpatch": "yarn version --patch && git push",
-    "deploy": "sh -c 'echo Add ${0} ${*} | git commit -aF -'",
+    "deploy": "sh -c 'echo ${0} ${*} | git commit -aF -'",
     "predeploy": "bun run --silent repo && git add .",
     "postdeploy": "yarn version --minor && git push"
   },
