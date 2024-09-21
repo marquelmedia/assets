@@ -8,12 +8,12 @@
   "scripts": {
     "repo": "echo -e \"\n\nAssets\"",
     "pull": "git pull && bun install",
-    "patch": "sh -c 'echo ${0} ${*} | git commit -aF -'",
+    "add": "sh -c 'echo Add ${0} ${*} | git commit -aF -'",
+    "preadd": "bun run --silent repo && git add .",
+    "postadd": "yarn version --minor && git push",
+    "patch": "sh -c 'echo Update ${0} ${*} | git commit -aF -'",
     "prepatch": "bun run --silent repo && git add .",
-    "postpatch": "yarn version --patch && git push",
-    "deploy": "sh -c 'echo ${0} ${*} | git commit -aF -'",
-    "predeploy": "bun run --silent repo && git add .",
-    "postdeploy": "yarn version --minor && git push"
+    "postpatch": "yarn version --patch && git push"
   },
   "dependencies": {
     "axios": "^1.6.7",
