@@ -8,10 +8,10 @@
   "scripts": {
     "repo": "echo -e \"\n\nAssets\"",
     "pull": "git pull && bun install",
-    "add": "sh -c 'if [[ -n $(git status --porcelain) ]]; then echo ${0} ${*} | git commit -aF - && yarn version --minor && git push; fi'",
-    "preadd": "bun run --silent repo && git add . && git status --porcelain",
-    "patch": "sh -c 'if [[ -n $(git status --porcelain) ]]; then echo ${0} ${*} | git commit -aF - && yarn version --patch && git push; fi'",
-    "prepatch": "bun run --silent repo && git add ."
+    "add": "sh -c 'if [[ -n $(git status --porcelain) ]]; then git add . && echo ${0} ${*} | git commit -aF - && yarn version --minor && git push; fi'",
+    "preadd": "bun run --silent repo && git checkout main",
+    "patch": "sh -c 'if [[ -n $(git status --porcelain) ]]; then git add . && echo ${0} ${*} | git commit -aF - && yarn version --patch && git push; fi'",
+    "prepatch": "bun run --silent repo && git checkout main"
   },
   "dependencies": {
     "axios": "^1.6.7",
