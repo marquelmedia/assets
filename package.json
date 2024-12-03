@@ -22,6 +22,6 @@
     "uglify-js": "^3.17.4",
     "uglifycss": "^0.0.29"
   },
-  "repository": "git@github.com:SelfishPixel/assets.git",
+  "repository": "git@github.com:marquelmedia/assets.git",
   "devDependencies": {}
 }
