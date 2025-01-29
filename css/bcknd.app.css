@@ -5,7 +5,7 @@
 .swagger-ui .topbar-wrapper h2 { position: absolute; right: 30px; top: 15px; color: #3b4151; margin: 0; font-size: 36px }
 .swagger-ui .topbar-wrapper small { position: absolute; right: 30px; top: 35px; color: #999; }
 .swagger-ui .topbar-wrapper label { position: absolute; right: 25px; top: 53px; }
-.swagger-ui .topbar-wrapper select { margin-top: 1px; border: 1px solid #41444e; outline: none; }
+select { margin-top: 1px; border: 1px solid #41444e; outline: none; border-radius: 0; }
 
 .swagger-ui .info, .swagger-ui .scheme-container .authorize { display: none; }
 .swagger-ui .info .title { height: 10px }
@@ -26,10 +26,14 @@
 .swagger-ui .opblock-tag-section .expand-operation { display: none }
 .swagger-ui .opblock-tag-section .operation-tag-content { margin-left: 25px; }
 
+.swagger-ui .opblock { border-radius: 0; }
 .swagger-ui .opblock-tag { border-radius: 5px; border-bottom: none; padding: 10px 0 0 0; padding-left: 25px; cursor: default; }
 .swagger-ui .opblock-tag a { /* cursor: default; */ }
 .swagger-ui .opblock-tag:hover { background: transparent; }
 .swagger-ui .opblock-tag:before { content: '/'; }
+.swagger-ui .model-box-control:focus, .swagger-ui .models-control:focus, .swagger-ui .opblock-summary-control:focus {
+  outline: none;
+}
 
 .swagger-ui .opblock-nested { margin: 0; padding-left: 25px }
 .swagger-ui .opblock-nested small,
