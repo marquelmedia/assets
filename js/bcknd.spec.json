@@ -1,1 +1,78 @@
-{"version":1,"title":" ","desc":" ","terms":{"url":" "},"license":{"type":" ","url":" "},"contact":{"name":" ","email":" ","url":" "},"external":{"name":" ","url":" "},"api":{"v1":{"title":"Backend","desc":"Universal API for Rapid App Development.","version":"0.1","tags":{"config":{"title":"Configuration","desc":"Fetch and manipulate the <strong>Backend's Configuration</strong>."},"auth":{"title":"Authentication","desc":"Grant <strong>Application Access</strong> + Verify <strong>(2FA)</strong> and <strong>Reset Credentials</strong> for Existing Users."},"auth_reset":{"title":" - Reset","desc":"Reset a <strong>User's Password</strong>."},"user":{"title":"User","desc":"Create, manipulate and remove <strong>Users</strong>."},"user_profile":{"title":" - Profile","desc":"Basic <strong>User Data</strong>."},"user_acks":{"title":" - Acknowledgements","desc":"Track a <strong>User's Acknowlegement</strong> of provided disclosures <em>(eg. <strong>TOS</strong>, <strong>Privacy Policy</strong>, etc...)</em>."},"user_devices":{"title":" - Devices","desc":"Manage a <strong>User's Devices</strong> <em>(eg. <strong>Mobile Phone</strong>, <strong>Desktop Browser</strong>, etc...)</em>."},"user_identities":{"title":" - Identities","desc":"Manage a <strong>User's Social Profiles</strong> <em>(eg. <strong>Instagram</strong>, <strong>Twitter</strong>, etc...)</em>."},"user_settings":{"title":" - Settings","desc":"Manage <strong>Custom Settings</strong> for a <strong>User</strong> <em>(eg. <strong>favorite_color</strong>, <strong>profile_image_url</strong>, etc...)</em>."},"user_location":{"title":" - Location","desc":"Manage a <strong>User's Physical Location</strong> <em>(eg. <strong>Lat</strong> & <strong>Long</strong>)</em>."},"user_privacy":{"title":" - Privacy","desc":"Limit the visibility of a <strong>User's Data</strong> to <strong>Other Users</strong> <em>(eg. Do NOT show <strong>First Name</strong>, <strong>City</strong>, etc...)</em>."},"user_feedback":{"title":" - Feedback","desc":"Capture <strong>User Feedback</strong>."}}}}}
+{
+  "version": 1,
+  "title": " ",
+  "desc": " ",
+  "terms": {
+    "url": " "
+  },
+  "license": {
+    "type": " ",
+    "url": " "
+  },
+  "contact": {
+    "name": " ",
+    "email": " ",
+    "url": " "
+  },
+  "external": {
+    "name": " ",
+    "url": " "
+  },
+  "api": {
+    "v1": {
+      "title": "Backend",
+      "desc": "Universal API for Rapid App Development.",
+      "version": "1.5.9",
+      "tags": {
+        "config": {
+          "title": "Configuration",
+          "desc": "Fetch and manipulate the <strong>Backend's Configuration</strong>."
+        },
+        "auth": {
+          "title": "Authentication",
+          "desc": "Grant <strong>Application Access</strong> + Verify <strong>(2FA)</strong> and <strong>Reset Credentials</strong> for Existing Users."
+        },
+        "auth_reset": {
+          "title": " - Reset",
+          "desc": "Reset a <strong>User's Password</strong>."
+        },
+        "user": {
+          "title": "User",
+          "desc": "Create, manipulate and remove <strong>Users</strong>."
+        },
+        "user_profile": {
+          "title": " - Profile",
+          "desc": "Basic <strong>User Data</strong>."
+        },
+        "user_acks": {
+          "title": " - Acknowledgements",
+          "desc": "Track a <strong>User's Acknowlegement</strong> of provided disclosures <em>(eg. <strong>TOS</strong>, <strong>Privacy Policy</strong>, etc...)</em>."
+        },
+        "user_devices": {
+          "title": " - Devices",
+          "desc": "Manage a <strong>User's Devices</strong> <em>(eg. <strong>Mobile Phone</strong>, <strong>Desktop Browser</strong>, etc...)</em>."
+        },
+        "user_identities": {
+          "title": " - Identities",
+          "desc": "Manage a <strong>User's Social Profiles</strong> <em>(eg. <strong>Instagram</strong>, <strong>Twitter</strong>, etc...)</em>."
+        },
+        "user_settings": {
+          "title": " - Settings",
+          "desc": "Manage <strong>Custom Settings</strong> for a <strong>User</strong> <em>(eg. <strong>favorite_color</strong>, <strong>profile_image_url</strong>, etc...)</em>."
+        },
+        "user_location": {
+          "title": " - Location",
+          "desc": "Manage a <strong>User's Physical Location</strong> <em>(eg. <strong>Lat</strong> & <strong>Long</strong>)</em>."
+        },
+        "user_privacy": {
+          "title": " - Privacy",
+          "desc": "Limit the visibility of a <strong>User's Data</strong> to <strong>Other Users</strong> <em>(eg. Do NOT show <strong>First Name</strong>, <strong>City</strong>, etc...)</em>."
+        },
+        "user_feedback": {
+          "title": " - Feedback",
+          "desc": "Capture <strong>User Feedback</strong>."
+        }
+      }
+    }
+  }
+}
