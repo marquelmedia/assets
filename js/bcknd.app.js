@@ -39,7 +39,7 @@ fetch('https://marquelmedia.github.io/assets/js/bcknd.spec.json')
       document.head.appendChild(link);
 
 document.querySelector('.topbar-wrapper').innerHTML = `
-        <h2>BCKND.</h2>
+        <h2>BCKND<span style="font-family: sans-serif;">.</span></h2>
         <small></small>
         <label>
           <div class="">

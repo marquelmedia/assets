@@ -5,11 +5,16 @@
 .swagger-ui .topbar-wrapper h2 { position: absolute; right: 30px; top: 6px; color: #3b4151; margin: 0; font-size: 36px }
 .swagger-ui .topbar-wrapper small { position: absolute; right: 30px; top: 35px; color: #999; }
 .swagger-ui .topbar-wrapper label { position: absolute; right: 25px; top: 53px; }
-select { margin-top: 1px !important;
+.swagger-ui select { margin-top: 1px !important;
   border: 1px solid #41444e !important;
   outline: none;
   border-radius: 0 !important;
   box-shadow: none !important; }
+.swagger-ui select.specifications {
+  margin-top: 3px !important;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .25) !important;
+ }
+
 
 .swagger-ui .info, .swagger-ui .scheme-container .authorize { display: none; }
 .swagger-ui .info .title { height: 10px }
@@ -72,4 +77,4 @@ footer {
 
 footer a { text-decoration: none; color: #444; font-family: 'Montserrat', sans-serif; }
 
-body { font-family: 'Montserrat', sans-serif; }
+body, .swagger-ui { font-family: 'Montserrat', sans-serif; }
