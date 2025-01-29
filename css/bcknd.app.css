@@ -6,7 +6,7 @@
 .swagger-ui .topbar-wrapper small { position: absolute; right: 30px; top: 35px; color: #999; }
 .swagger-ui .topbar-wrapper label { position: absolute; right: 25px; top: 53px; }
 
-.swagger-ui .info, .swagger-ui .scheme-container .schemes { display: none; }
+.swagger-ui .info, .swagger-ui .scheme-container .authorize { display: none; }
 .swagger-ui .info .title { height: 10px }
 .swagger-ui .info .title small:not(.version-stamp) { margin: 0 }
 
