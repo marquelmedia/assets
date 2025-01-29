@@ -6,6 +6,9 @@
 .swagger-ui .topbar-wrapper small { position: absolute; right: 30px; top: 35px; color: #999; }
 .swagger-ui .topbar-wrapper label { position: absolute; right: 25px; top: 53px; }
 
+.swagger-ui .info .title { height: 10px }
+.swagger-ui .info .title small:not(.version-stamp) { margin: 0 }
+
 .swagger-ui .info { margin: 30px 0 50px; }
 .swagger-ui .info hgroup.main { margin: 0; }
 .swagger-ui .info__contact { margin-top: -10px; }
