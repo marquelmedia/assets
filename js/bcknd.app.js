@@ -33,7 +33,7 @@ fetch('https://marquelmedia.github.io/assets/js/bcknd.spec.json')
         <label>
           <div class="">
             <select aria-label="Specification" class="specifications">
-              <option value="" disabled selected>Explore</option>
+              <option value="" disabled selected>Explore...</option>
               ${specifications}
             </select>
           </div>
@@ -50,15 +50,6 @@ fetch('https://marquelmedia.github.io/assets/js/bcknd.spec.json')
       setTimeout(() => {
         let hash = location.hash.split('/')[1] ?? '';
         document.querySelector('.specifications').value = `${hash.length ? `#/${hash}` : ''}`;
-        document.querySelector('.specifications').onchange = (e) => {
-          /*document.querySelector('.swagger-container > div.swagger-ui').innerHTML = `
-            <div class='loading-container'><div class='loading'></div></div>
-          `;*/
-          const top = document.getElementById(
-            'operations-tag-' + document.querySelector('.specifications').value.split('/')[1]
-          ).offsetTop;
-          window.scrollTo(0, top);
-        };
         document.querySelector('.specifications').onchange = (e) => {
           /*document.querySelector('.swagger-container > div.swagger-ui').innerHTML = `
             <div class='loading-container'><div class='loading'></div></div>
