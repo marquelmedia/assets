@@ -79,7 +79,7 @@ fetch('https://marquelmedia.github.io/assets/js/bcknd.spec.json')
           if (tag.id.match(/_/)) {
             let copy = `<h3 class="opblock-nested" id="${tag.id}">${tag.innerHTML}</h3>`;
             let section = document.querySelector( `#${tag.id}` ).parentElement;
-            //tag.remove();
+            tag.remove();
             section.insertAdjacentHTML('afterBegin', copy);
             section.style.marginTop = '0px';
             section.style.marginLeft = '25px';
@@ -91,7 +91,7 @@ fetch('https://marquelmedia.github.io/assets/js/bcknd.spec.json')
           } else {
             let copy = `<h3 class="opblock-tag" id="${tag.id}">${tag.innerHTML}</h3>`;
             let section = document.querySelector( `#${tag.id}` ).parentElement;
-            //tag.remove();
+            tag.remove();
             section.insertAdjacentHTML('afterBegin', copy);
           }
         });
