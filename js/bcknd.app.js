@@ -29,7 +29,7 @@ fetch('https://marquelmedia.github.io/assets/js/bcknd.spec.json')
     setTimeout(() => {
       document.querySelector('.topbar-wrapper').innerHTML = `
         <h2>BCKND.</h2>
-        <small>Documentation</small>
+        <small></small>
         <label>
           <div class="">
             <select aria-label="Specification" class="specifications">
