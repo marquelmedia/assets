@@ -48,7 +48,8 @@ fetch('https://marquelmedia.github.io/assets/js/bcknd.spec.json')
         </footer>
       `;
       setTimeout(() => {
-        document.querySelector('.specifications').value = `#/${location.hash.split('/')[1]}`;
+        let hash = location.hash.split('/')[1] ?? '';
+        document.querySelector('.specifications').value = `${hash.length ? `#/${hash}` : ''}`;
         document.querySelector('.specifications').onchange = (e) => {
           /*document.querySelector('.swagger-container > div.swagger-ui').innerHTML = `
             <div class='loading-container'><div class='loading'></div></div>
