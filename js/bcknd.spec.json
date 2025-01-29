@@ -20,7 +20,7 @@
   },
   "api": {
     "v1": {
-      "title": "Backend",
+      "title": "",
       "desc": "Universal API for Rapid App Development.",
       "version": "1.5.13",
       "tags": {
