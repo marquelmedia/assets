@@ -40,8 +40,12 @@ fetch('https://marquelmedia.github.io/assets/js/bcknd.spec.json')
         </label>
         <!--
         document.querySelector('.info hgroup.main span').innerHTML;
-
         -->
+      `;
+      document.querySelector('body').innerHTML += `
+        <footer>
+          <a href="https://marquel.media" target="_blank">MARQUELMEDIA™</a>
+        </footer>
       `;
       setTimeout(() => {
         document.querySelector('.specifications').value = `#/${location.hash.split('/')[1]}`;

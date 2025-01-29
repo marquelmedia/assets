@@ -60,3 +60,12 @@ select { margin-top: 1px !important;
   padding: 5px 23px;
   transition: all .3s;
 }
+
+footer {
+  position: fixed;
+  padding: 5px;
+  font-size: 11px;
+  z-index: 2;
+  bottom: 0;
+  right: 0;
+}
