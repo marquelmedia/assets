@@ -38,7 +38,7 @@ fetch('https://marquelmedia.github.io/assets/js/bcknd.spec.json')
       // Append the link element to the head
       document.head.appendChild(link);
 
-document.querySelector('.topbar-wrapper').innerHTML = `
+      document.querySelector('.topbar-wrapper').innerHTML = `
         <h2>BCKND<span style="font-family: sans-serif;">.</span></h2>
         <small></small>
         <label>
@@ -79,7 +79,7 @@ document.querySelector('.topbar-wrapper').innerHTML = `
           if (tag.id.match(/_/)) {
             let copy = `<h3 class="opblock-nested" id="${tag.id}">${tag.innerHTML}</h3>`;
             let section = document.querySelector( `#${tag.id}` ).parentElement;
-            tag.remove();
+            //tag.remove();
             section.insertAdjacentHTML('afterBegin', copy);
             section.style.marginTop = '0px';
             section.style.marginLeft = '25px';
@@ -91,7 +91,7 @@ document.querySelector('.topbar-wrapper').innerHTML = `
           } else {
             let copy = `<h3 class="opblock-tag" id="${tag.id}">${tag.innerHTML}</h3>`;
             let section = document.querySelector( `#${tag.id}` ).parentElement;
-            tag.remove();
+            //tag.remove();
             section.insertAdjacentHTML('afterBegin', copy);
           }
         });
