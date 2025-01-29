@@ -70,4 +70,6 @@ footer {
   right: 72px;
 }
 
-footer a { text-decoration: none; color: #444; font-family: sans-serif; }
+footer a { text-decoration: none; color: #444; font-family: 'Montserrat', sans-serif; }
+
+body { font-family: 'Montserrat', sans-serif; }

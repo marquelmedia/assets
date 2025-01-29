@@ -27,7 +27,18 @@ fetch('https://marquelmedia.github.io/assets/js/bcknd.spec.json')
     });
 
     setTimeout(() => {
-      document.querySelector('.topbar-wrapper').innerHTML = `
+      // Create a new link element
+      const link = document.createElement('link');
+
+      // Set the attributes of the link element
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = 'https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap';
+
+      // Append the link element to the head
+      document.head.appendChild(link);
+
+document.querySelector('.topbar-wrapper').innerHTML = `
         <h2>BCKND.</h2>
         <small></small>
         <label>
