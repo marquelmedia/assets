@@ -6,7 +6,7 @@ fetch('https://marquelmedia.github.io/assets/js/bcknd.spec.json')
     const slugs = [];
 
     for (const [endpoint, meta] of Object.entries(data.api)) {
-      if (endpoint == url.split('/')[3]) {
+      if (endpoint == location.href.split('/')[3]) {
         slugs.push({
           doc: endpoint,
           tags: Object.entries(meta.tags),
