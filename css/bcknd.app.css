@@ -2,9 +2,10 @@
 .swagger-ui .topbar { position: fixed; right: -5px; top: 25px; width: 200px; height: 53px; z-index: 99; background: transparent; }
 .swagger-ui .topbar a.link { display: none; }
 .swagger-ui .topbar-wrapper { flex-direction: row-reverse; }
-.swagger-ui .topbar-wrapper h2 { position: absolute; right: 30px; top: 0px; color: #3b4151; margin: 0; font-size: 36px }
+.swagger-ui .topbar-wrapper h2 { position: absolute; right: 30px; top: 15px; color: #3b4151; margin: 0; font-size: 36px }
 .swagger-ui .topbar-wrapper small { position: absolute; right: 30px; top: 35px; color: #999; }
 .swagger-ui .topbar-wrapper label { position: absolute; right: 25px; top: 53px; }
+.swagger-ui .topbar-wrapper select { margin-top: 1px; border: 1px solid #41444e; outline: none; }
 
 .swagger-ui .info, .swagger-ui .scheme-container .authorize { display: none; }
 .swagger-ui .info .title { height: 10px }
