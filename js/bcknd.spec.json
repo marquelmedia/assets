@@ -22,7 +22,7 @@
     "v1": {
       "title": "Backend",
       "desc": "Universal API for Rapid App Development.",
-      "version": "1.5.9",
+      "version": "1.5.13",
       "tags": {
         "config": {
           "title": "Configuration",
