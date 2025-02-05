@@ -1,6 +1,6 @@
 {
   "name": "marquelmedia.assets",
-  "version": "1.7.0",
+  "version": "1.1.1",
   "description": "Resources for MARQUELMEDIA deployments",
   "author": "@eatmycode",
   "license": "UNLICENSED",
@@ -8,10 +8,8 @@
   "scripts": {
     "repo": "echo -e \"\n\nASSETS\"",
     "pull": "git pull && bun install",
-    "add": "sh -c 'if [[ -n $(git status --porcelain) ]]; then git add . && echo add ${0} ${*} | git commit -aF - && yarn version --minor && git push; fi'",
-    "preadd": "bun run --silent repo && git checkout main && bun run ci/env.ts",
-    "patch": "sh -c 'if [[ -n $(git status --porcelain) ]]; then git add . && echo update${0} ${*} | git commit -aF - && yarn version --patch && git push; fi'",
-    "prepatch": "bun run --silent repo && git checkout main && bun run ci/env.ts"
+    "commit": "sh -c 'if [[ -n $(git status --porcelain) ]]; then git add . && echo ${0} ${*} | git commit -aF - && yarn version --patch && git push; fi'",
+    "precommit": "bun run --silent repo && git checkout main && bun run ci/env.ts"
   },
   "dependencies": {
     "axios": "^1.6.7",
