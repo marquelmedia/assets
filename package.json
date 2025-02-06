@@ -1,16 +1,17 @@
 {
   "name": "marquelmedia.assets",
-  "version": "1.1.31",
+  "version": "1.1.32",
   "description": "Resources for MARQUELMEDIA deployments",
   "author": "@eatmycode",
   "license": "UNLICENSED",
   "private": true,
   "scripts": {
+    "repo": "echo -ne \"\t$(basename `git rev-parse --show-toplevel`|tr '[:lower:]' '[:upper:]')\".",
     "pull": "git pull && bun install",
     "prepull": "git checkout main &> /dev/null",
     "postpull": "git checkout development &>/dev/null || git checkout -b development &> /dev/null && yarn >/dev/null 2>&1",
-    "commit": "sh -c 'if [[ -n $(git status --porcelain) ]]; then git add . &> /dev/null && echo ${0} ${*} | git commit -aF - &> /dev/null && git push &> /dev/null; fi'",
-    "precommit": "bun run --silent postpull",
+    "commit": "sh -c 'if [[ -n $(git status --porcelain) ]]; then git add . &> /dev/null && echo ${0} ${*} | git commit -aF - &> /dev/null && git push &> /dev/null; echo done; fi'",
+    "precommit": "bun run --silent repo && bun run --silent postpull",
     "deploy": "sh -c 'git stash && git merge main -m Deploy; git commit -a -m \"v$npm_package_version\"; git push'",
     "predeploy": "git checkout main",
     "postdeploy": " bun run --silent postpull"
