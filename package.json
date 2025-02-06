@@ -1,12 +1,11 @@
 {
   "name": "marquelmedia.assets",
-  "version": "1.1.28",
+  "version": "1.1.29",
   "description": "Resources for MARQUELMEDIA deployments",
   "author": "@eatmycode",
   "license": "UNLICENSED",
   "private": true,
   "scripts": {
-    "repo": "echo -e \"\n\nASSETS.\"",
     "pull": "git pull && bun install",
     "prepull": "git checkout main &> /dev/null",
     "postpull": "git checkout development &>/dev/null || git checkout -b development &> /dev/null && yarn >/dev/null 2>&1",
