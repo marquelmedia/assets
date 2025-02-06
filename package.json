@@ -1,6 +1,6 @@
 {
   "name": "marquelmedia.assets",
-  "version": "1.1.10",
+  "version": "1.1.11",
   "description": "Resources for MARQUELMEDIA deployments",
   "author": "@eatmycode",
   "license": "UNLICENSED",
@@ -8,8 +8,13 @@
   "scripts": {
     "repo": "echo -e \"\n\nASSETS\"",
     "pull": "git pull && bun install",
+    "prepull": "git checkout main",
+    "postpull": "git checkout development 2>/dev/null || git checkout -b development",
     "commit": "sh -c 'if [[ -n $(git status --porcelain) ]]; then git add . && echo ${0} ${*} | git commit -aF - && git push; fi'",
-    "precommit": "bun run --silent repo && git checkout main && bun run ci/env.ts"
+    "precommit": "bun run --silent repo && bun run postpull && bun run ci/env.ts",
+    "deploy": "sh -c 'git stash && git merge main -m Deploy; git commit -a -m \"v$npm_package_version\"; git push'",
+    "predeploy": "git checkout main",
+    "postdeploy": "bun run postpull"
   },
   "dependencies": {
     "axios": "^1.6.7",
