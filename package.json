@@ -1,6 +1,6 @@
 {
   "name": "marquelmedia.assets",
-  "version": "1.1.107",
+  "version": "1.1.108",
   "description": "Resources for MARQUELMEDIA deployments",
   "author": "@eatmycode",
   "license": "UNLICENSED",
@@ -9,7 +9,7 @@
     "repo": "echo ..... $(basename `git rev-parse --show-toplevel`)",
     "pull": "git pull && bun install",
     "prepull": "git checkout main &> /dev/null",
-    "postpull": "git checkout development &>/dev/null || git checkout -b development &> /dev/null; yarn >/dev/null 2>&1",
+    "postpull": "git checkout development &>/dev/null || git checkout -b development &> /dev/null",
     "commit": "sh -c 'if [[ -n $(git status --porcelain) ]]; then git add . &> /dev/null && echo ${0} ${*} | git commit -aF - &> /dev/null && git push &> /dev/null; fi'",
     "precommit": "bun run --silent repo && bun run --silent postpull",
     "deploy": "sh -c 'git merge development -m \"v$(node -p process.env.npm_package_version)\" &> /dev/null; git push &> /dev/null'",
@@ -17,12 +17,12 @@
     "postdeploy": "git stash apply &> /dev/null ; bun run --silent postpull"
   },
   "dependencies": {
-    "axios": "^1.6.7",
-    "canvas": "^2.11.2",
+    "axios": "^1.7.9",
+    "canvas": "^3.1.0",
     "potrace": "^2.1.8",
-    "sharp": "^0.31.3",
+    "sharp": "^0.33.5",
     "sharp-ico": "^0.1.5",
-    "uglify-js": "^3.17.4",
+    "uglify-js": "^3.19.3",
     "uglifycss": "^0.0.29"
   },
   "repository": "git@github.com:marquelmedia/assets.git",
