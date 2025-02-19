@@ -1,9 +1,10 @@
 {
   "name": "marquelmedia.assets",
-  "version": "1.1.108",
+  "version": "1.1.109",
   "description": "Resources for MARQUELMEDIA deployments",
   "author": "@eatmycode",
   "license": "UNLICENSED",
+  "repository": "git@github.com:marquelmedia/assets.git",
   "private": true,
   "scripts": {
     "repo": "echo ..... $(basename `git rev-parse --show-toplevel`)",
@@ -16,15 +17,13 @@
     "predeploy": "git stash &> /dev/null && git checkout main &> /dev/null",
     "postdeploy": "git stash apply &> /dev/null ; bun run --silent postpull"
   },
-  "dependencies": {
-    "axios": "^1.7.9",
+  "dependencies": {},
+  "devDependencies": {
     "canvas": "^3.1.0",
     "potrace": "^2.1.8",
     "sharp": "^0.33.5",
     "sharp-ico": "^0.1.5",
     "uglify-js": "^3.19.3",
     "uglifycss": "^0.0.29"
-  },
-  "repository": "git@github.com:marquelmedia/assets.git",
-  "devDependencies": {}
+  }
 }
