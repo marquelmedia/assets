@@ -1,6 +1,6 @@
 {
   "name": "marquelmedia.assets",
-  "version": "1.1.121",
+  "version": "1.1.122",
   "description": "Resources for MARQUELMEDIA deployments",
   "author": "@eatmycode",
   "license": "UNLICENSED",
@@ -15,7 +15,7 @@
     "precommit": "bun run --silent repo && bun run --silent postpull",
     "deploy": "sh -c 'git merge development -m \"v$(node -p process.env.npm_package_version)\" &> /dev/null; git push &> /dev/null'",
     "predeploy": "git stash &> /dev/null && git checkout main &> /dev/null",
-    "postdeploy": "git stash apply &> /dev/null ; bun run --silent postpull"
+    "postdeploy": "git stash clear &> /dev/null ; bun run --silent postpull"
   },
   "dependencies": {},
   "devDependencies": {
