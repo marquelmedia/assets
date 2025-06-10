@@ -1,7 +1,8 @@
 # Local vars
 .env
 .env.*
-docker-compose.yml
+docker-compose.yml  
+local/
 
 # Compiled output
 /dist
