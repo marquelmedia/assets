@@ -19,24 +19,25 @@ import { readdir, readFile, writeFile, stat, unlink } from 'node:fs/promises';
 import { join, extname } from 'node:path';
 import sharp from 'sharp';
 
-const IMG_DIR = 'img';
-const RASTER = new Set(['.png', '.jpg', '.jpeg', '.gif']);
-const MIN_SOURCE_BYTES = 1024; // tiny sources (spacers/pixels) never benefit
-const MIN_SAVINGS = 16; // bytes; ignore negligible differences
+export const IMG_DIR = 'img';
+export const RASTER = new Set(['.png', '.jpg', '.jpeg', '.gif']);
+export const MIN_SOURCE_BYTES = 1024; // tiny sources (spacers/pixels) never benefit
+export const MIN_SAVINGS = 16; // bytes; ignore negligible differences
 
-type Flags = { check: boolean; files: string[] };
+export type Flags = { check: boolean; files: string[]; dir: string };
 
-function parseFlags(argv: string[]): Flags {
-  const flags: Flags = { check: false, files: [] };
+export function parseFlags(argv: string[]): Flags {
+  const flags: Flags = { check: false, files: [], dir: IMG_DIR };
   for (const arg of argv) {
     if (arg === '--check') flags.check = true;
     else if (arg === '--yes') continue;
+    else if (arg.startsWith('--dir=')) flags.dir = arg.slice('--dir='.length);
     else if (!arg.startsWith('-')) flags.files.push(arg);
   }
   return flags;
 }
 
-async function* walk(dir: string): AsyncGenerator<string> {
+export async function* walk(dir: string): AsyncGenerator<string> {
   for (const entry of await readdir(dir, { withFileTypes: true })) {
     if (entry.name.startsWith('.')) continue;
     const full = join(dir, entry.name);
@@ -45,9 +46,9 @@ async function* walk(dir: string): AsyncGenerator<string> {
   }
 }
 
-const variantPath = (src: string) => src.slice(0, -extname(src).length) + '.webp';
+export const variantPath = (src: string) => src.slice(0, -extname(src).length) + '.webp';
 
-async function exists(path: string): Promise<boolean> {
+export async function exists(path: string): Promise<boolean> {
   try {
     return (await stat(path)).isFile();
   } catch {
@@ -55,7 +56,7 @@ async function exists(path: string): Promise<boolean> {
   }
 }
 
-async function encodeWebp(src: string, input: Buffer): Promise<Buffer> {
+export async function encodeWebp(src: string, input: Buffer): Promise<Buffer> {
   const ext = extname(src).toLowerCase();
   const pipeline = sharp(input, { animated: ext === '.gif' });
   const lossy = ext === '.jpg' || ext === '.jpeg';
@@ -66,9 +67,9 @@ async function encodeWebp(src: string, input: Buffer): Promise<Buffer> {
 
 /**
  * Decide the desired state for one source's variant and reconcile it.
- * Returns a short status string when something changed / is out of date.
+ * Returns whether anything changed / is out of date, and a short status note.
  */
-async function reconcile(
+export async function reconcile(
   src: string,
   flags: Flags,
 ): Promise<{ changed: boolean; note?: string }> {
@@ -115,20 +116,24 @@ async function reconcile(
   return { changed: true, note: `wrote   ${out}  (-${pct}% vs ${extname(src).slice(1)})` };
 }
 
-async function main() {
-  const flags = parseFlags(process.argv.slice(2));
-
-  // Determine the raster sources to reconcile.
-  let sources: string[] = [];
+/** Resolve the raster sources to reconcile from flags. */
+export async function collectSources(flags: Flags): Promise<string[]> {
+  const sources: string[] = [];
   if (flags.files.length) {
     for (const f of flags.files) {
       if (RASTER.has(extname(f).toLowerCase()) && (await exists(f))) sources.push(f);
     }
   } else {
-    for await (const f of walk(IMG_DIR)) {
+    for await (const f of walk(flags.dir)) {
       if (RASTER.has(extname(f).toLowerCase())) sources.push(f);
     }
   }
+  return sources;
+}
+
+export async function run(argv: string[]): Promise<number> {
+  const flags = parseFlags(argv);
+  const sources = await collectSources(flags);
 
   const notes: string[] = [];
   let changed = false;
@@ -140,10 +145,10 @@ async function main() {
 
   // Full runs also prune orphaned .webp whose source no longer exists.
   if (!flags.files.length) {
-    const sourceSet = new Set(sources.map(variantPath));
-    for await (const f of walk(IMG_DIR)) {
+    const keep = new Set(sources.map(variantPath));
+    for await (const f of walk(flags.dir)) {
       if (extname(f).toLowerCase() !== '.webp') continue;
-      if (sourceSet.has(f)) continue;
+      if (keep.has(f)) continue;
       changed = true;
       if (flags.check) notes.push(`  orphan  ${f} (no source)`);
       else {
@@ -158,16 +163,15 @@ async function main() {
       console.error('WebP variants out of date:');
       console.error(notes.join('\n'));
       console.error("\nRun 'bun run variants' and commit the result.");
-      process.exit(1);
+      return 1;
     }
     console.log('WebP variants up to date.');
-    return;
+    return 0;
   }
 
   console.log(notes.length ? notes.join('\n') : 'No variant changes.');
+  return 0;
 }
 
-main().catch((err) => {
-  console.error(err);
-  process.exit(1);
-});
+// Only run the CLI when executed directly, so tests can import the pure helpers.
+if (import.meta.main) run(process.argv.slice(2)).then((code) => process.exit(code));

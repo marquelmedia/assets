@@ -16,6 +16,7 @@ jobs:
         with:
           bun-version: latest
       - run: bun install --frozen-lockfile
+      - run: bun run test:coverage
       - run: bun run optimize:check
       - run: bun run variants:check
       - run: bun run manifest:check

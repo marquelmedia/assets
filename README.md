@@ -27,7 +27,8 @@ assets/
 ├── tools/
 │   ├── optimize.ts            # Bun media optimizer (image compression / SVG minify)
 │   ├── variants.ts            # Generates modern-format (WebP) siblings for rasters
-│   └── manifest.ts            # Generates img/manifest.json + CATALOG.md
+│   ├── manifest.ts            # Generates img/manifest.json + CATALOG.md
+│   └── *.test.ts              # bun test suites for the tools
 ├── img/                       # Image assets
 │   ├── devices/
 │   │   └── iphone.png         # iPhone device mockup
@@ -51,6 +52,7 @@ assets/
 │   └── emojis.json            # Emoji definitions / mappings
 ├── CATALOG.md                 # Generated visual catalog of every asset
 ├── package.json               # Metadata + tooling & git helper scripts
+├── bunfig.toml                # bun test coverage thresholds
 ├── bun.lockb                  # Bun lock file
 ├── README.md
 └── TODO.md                    # Tracked future enhancements
@@ -77,6 +79,8 @@ bun run variants          # (re)build/prune WebP siblings for rasters
 bun run variants:check    # non-zero exit if a variant is missing/stale/orphaned
 bun run manifest          # (re)generate img/manifest.json + CATALOG.md
 bun run manifest:check    # non-zero exit if metadata is stale
+bun run test              # unit tests for the tools (bun test)
+bun run test:coverage     # tests + coverage (thresholds enforced via bunfig.toml)
 bun run hooks             # enable the pre-commit hook (core.hooksPath=.githooks)
 bun tools/optimize.ts --lossy   # allow palette PNGs / mozjpeg for extra savings
 ```
@@ -96,6 +100,9 @@ bun tools/optimize.ts --lossy   # allow palette PNGs / mozjpeg for extra savings
 - **Metadata** — `img/manifest.json` (also served publicly) lists every asset's type,
   size, dimensions, content hash, public URL, and variant links; [`CATALOG.md`](./CATALOG.md)
   is the human-readable view. Both are generated — never hand-edit them.
+- **Tests** — each tool exports pure helpers and guards its CLI with `import.meta.main`,
+  so `tools/*.test.ts` exercise them with temp-dir fixtures (`bun test`). Coverage
+  thresholds (line/function ≥ 0.9) are enforced via `bunfig.toml` and run in CI.
 
 Git helper scripts (`pull`, `commit`, `deploy`) are thin Bun/git wrappers for the
 submodule's release flow.

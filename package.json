@@ -22,6 +22,9 @@
     "variants:check": "bun tools/variants.ts --check",
     "manifest": "bun tools/manifest.ts",
     "manifest:check": "bun tools/manifest.ts --check",
+    "test": "bun test tools/",
+    "test:tools": "bun test tools/",
+    "test:coverage": "bun test --coverage tools/",
     "hooks": "git config core.hooksPath .githooks",
     "postinstall": "git config core.hooksPath .githooks 2>/dev/null || true"
   },

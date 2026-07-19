@@ -1,0 +1,4 @@
+[test]
+# Enforced when running with --coverage (see `bun run test:coverage` and CI).
+coverageSkipTestFiles = true
+coverageThreshold = { line = 0.9, function = 0.9 }

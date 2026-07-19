@@ -24,12 +24,12 @@ import { join, extname } from 'node:path';
 import sharp from 'sharp';
 import { optimize as svgoOptimize } from 'svgo';
 
-type Flags = { check: boolean; lossy: boolean; dir: string; files: string[] };
+export type Flags = { check: boolean; lossy: boolean; dir: string; files: string[] };
 
-const RASTER = new Set(['.png', '.jpg', '.jpeg', '.gif']);
-const MIN_SAVINGS = 16; // bytes; ignore churn smaller than this
+export const RASTER = new Set(['.png', '.jpg', '.jpeg', '.gif']);
+export const MIN_SAVINGS = 16; // bytes; ignore churn smaller than this
 
-function parseFlags(argv: string[]): Flags {
+export function parseFlags(argv: string[]): Flags {
   const flags: Flags = { check: false, lossy: false, dir: 'img', files: [] };
   for (let i = 0; i < argv.length; i++) {
     const arg = argv[i];
@@ -43,7 +43,7 @@ function parseFlags(argv: string[]): Flags {
   return flags;
 }
 
-async function* walk(dir: string): AsyncGenerator<string> {
+export async function* walk(dir: string): AsyncGenerator<string> {
   for (const entry of await readdir(dir, { withFileTypes: true })) {
     if (entry.name.startsWith('.')) continue; // skip .DS_Store, dotfiles
     const full = join(dir, entry.name);
@@ -52,7 +52,14 @@ async function* walk(dir: string): AsyncGenerator<string> {
   }
 }
 
-async function optimizeRaster(
+export function isMedia(file: string): 'raster' | 'vector' | null {
+  const ext = extname(file).toLowerCase();
+  if (RASTER.has(ext)) return 'raster';
+  if (ext === '.svg') return 'vector';
+  return null;
+}
+
+export async function optimizeRaster(
   file: string,
   input: Buffer,
   lossy: boolean,
@@ -77,7 +84,7 @@ async function optimizeRaster(
   }
 }
 
-function optimizeVector(input: Buffer): Buffer {
+export function optimizeVector(input: Buffer): Buffer {
   const result = svgoOptimize(input.toString('utf8'), {
     multipass: true,
     plugins: [
@@ -96,7 +103,7 @@ function optimizeVector(input: Buffer): Buffer {
   return Buffer.from(result.data, 'utf8');
 }
 
-async function collectTargets(flags: Flags): Promise<string[]> {
+export async function collectTargets(flags: Flags): Promise<string[] | null> {
   if (flags.files.length) {
     const targets: string[] = [];
     for (const f of flags.files) {
@@ -111,83 +118,89 @@ async function collectTargets(flags: Flags): Promise<string[]> {
   try {
     if (!(await stat(flags.dir)).isDirectory()) throw new Error();
   } catch {
-    console.error(`Directory not found: ${flags.dir}`);
-    process.exit(1);
+    return null; // signals "directory not found"
   }
   const targets: string[] = [];
   for await (const f of walk(flags.dir)) targets.push(f);
   return targets;
 }
 
-async function main() {
-  const flags = parseFlags(process.argv.slice(2));
+/** Optimize (or, in check mode, evaluate) one file. Returns its byte delta + note. */
+export async function optimizeFile(
+  file: string,
+  flags: Flags,
+): Promise<{ before: number; saved: number; note?: string; failed?: boolean }> {
+  const kind = isMedia(file);
+  if (!kind) return { before: 0, saved: 0 };
+
+  const input = await readFile(file);
+  let output: Buffer;
+  try {
+    output =
+      kind === 'vector'
+        ? optimizeVector(input)
+        : await optimizeRaster(file, input, flags.lossy);
+  } catch (err) {
+    return { before: input.length, saved: 0, note: `! skipped ${file}: ${(err as Error).message}`, failed: true };
+  }
+
+  const saved = input.length - output.length;
+  if (saved <= MIN_SAVINGS) return { before: input.length, saved: 0 };
+
+  const pct = ((saved / input.length) * 100).toFixed(1);
+  if (flags.check) {
+    return { before: input.length, saved, note: `  ${file}  (-${saved}B, -${pct}%)` };
+  }
+  await writeFile(file, output);
+  return { before: input.length, saved, note: `  optimized ${file}  (-${saved}B, -${pct}%)` };
+}
+
+export async function run(argv: string[]): Promise<number> {
+  const flags = parseFlags(argv);
   const targets = await collectTargets(flags);
+  if (targets === null) {
+    console.error(`Directory not found: ${flags.dir}`);
+    return 1;
+  }
 
   let totalBefore = 0;
-  let totalAfter = 0;
+  let totalSaved = 0;
   const shrinkable: string[] = [];
   let failures = 0;
 
   for (const file of targets) {
-    const ext = extname(file).toLowerCase();
-    const isRaster = RASTER.has(ext);
-    const isVector = ext === '.svg';
-    if (!isRaster && !isVector) continue;
-
-    const input = await readFile(file);
-    let output: Buffer;
-    try {
-      output = isVector
-        ? optimizeVector(input)
-        : await optimizeRaster(file, input, flags.lossy);
-    } catch (err) {
-      console.error(`  ! skipped ${file}: ${(err as Error).message}`);
-      failures++;
-      continue;
-    }
-
-    const saved = input.length - output.length;
-    totalBefore += input.length;
-    totalAfter += saved > MIN_SAVINGS ? output.length : input.length;
-
-    if (saved > MIN_SAVINGS) {
-      const pct = ((saved / input.length) * 100).toFixed(1);
-      if (flags.check) {
-        shrinkable.push(`  ${file}  (-${saved}B, -${pct}%)`);
-      } else {
-        await writeFile(file, output);
-        console.log(`  optimized ${file}  (-${saved}B, -${pct}%)`);
-      }
+    const r = await optimizeFile(file, flags);
+    totalBefore += r.before;
+    totalSaved += r.saved;
+    if (r.failed) failures++;
+    if (r.note) {
+      if (flags.check && !r.failed) shrinkable.push(r.note);
+      else console[r.failed ? 'error' : 'log'](r.note);
     }
   }
 
-  const savedTotal = totalBefore - totalAfter;
-  const pctTotal = totalBefore
-    ? ((savedTotal / totalBefore) * 100).toFixed(1)
-    : '0.0';
+  const pctTotal = totalBefore ? ((totalSaved / totalBefore) * 100).toFixed(1) : '0.0';
 
   if (flags.check) {
     if (shrinkable.length) {
       console.error(
-        `Media not fully optimized (${shrinkable.length} file(s), ~${savedTotal}B / ${pctTotal}% recoverable):`,
+        `Media not fully optimized (${shrinkable.length} file(s), ~${totalSaved}B / ${pctTotal}% recoverable):`,
       );
       console.error(shrinkable.join('\n'));
       console.error("\nRun 'bun run optimize' and commit the result.");
-      process.exit(1);
+      return 1;
     }
     console.log('Media already optimized.');
   } else {
     console.log(
-      savedTotal > 0
-        ? `\nDone. Saved ${savedTotal}B (${pctTotal}%).`
+      totalSaved > 0
+        ? `\nDone. Saved ${totalSaved}B (${pctTotal}%).`
         : '\nDone. Nothing to optimize.',
     );
   }
 
-  if (failures) process.exit(1);
+  return failures ? 1 : 0;
 }
 
-main().catch((err) => {
-  console.error(err);
-  process.exit(1);
-});
+// Only run the CLI when executed directly, so tests can import the pure helpers.
+if (import.meta.main) run(process.argv.slice(2)).then((code) => process.exit(code));
