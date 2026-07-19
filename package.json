@@ -15,15 +15,19 @@
     "precommit": "bun run --silent repo && bun run --silent postpull",
     "deploy": "sh -c 'git merge development -m \"v$(node -p process.env.npm_package_version)\" &> /dev/null; git push &> /dev/null'",
     "predeploy": "git stash &> /dev/null && git checkout main &> /dev/null",
-    "postdeploy": "git stash clear &> /dev/null ; bun run --silent postpull"
+    "postdeploy": "git stash clear &> /dev/null ; bun run --silent postpull",
+    "optimize": "bun tools/optimize.ts --yes",
+    "optimize:check": "bun tools/optimize.ts --check",
+    "variants": "bun tools/variants.ts",
+    "variants:check": "bun tools/variants.ts --check",
+    "manifest": "bun tools/manifest.ts",
+    "manifest:check": "bun tools/manifest.ts --check",
+    "hooks": "git config core.hooksPath .githooks",
+    "postinstall": "git config core.hooksPath .githooks 2>/dev/null || true"
   },
   "dependencies": {},
   "devDependencies": {
-    "canvas": "^3.1.0",
-    "potrace": "^2.1.8",
-    "sharp": "^0.33.5",
-    "sharp-ico": "^0.1.5",
-    "uglify-js": "^3.19.3",
-    "uglifycss": "^0.0.29"
+    "sharp": "^0.35.3",
+    "svgo": "^4.0.2"
   }
 }

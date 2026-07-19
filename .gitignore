@@ -1,48 +1,18 @@
-# Local vars
+# Local env
 .env
 .env.*
-docker-compose.yml  
 local/
 
-# Compiled output
-/dist
+# Dependencies
 /node_modules
-/src/branding/*.ico
-/src/branding/*.png
-/src/branding/*.svg
-/src/branding/*.xml
-/src/branding/*.webapp
-/src/branding/*.webmanifest
 
-# Tests
-/coverage
-/.nyc_output
+# Design sources (keep out of the published, GitHub Pages-served repo)
+*.psd
 
 # Logs
-logs
 *.log
-npm-debug.log*
-pnpm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-lerna-debug.log*
-nohup*
 
-# OS
+# OS / editors
 .DS_Store
-
-# IDEs and editors
 /.idea
-.project
-.classpath
-.c9/
-*.launch
-.settings/
-*.sublime-workspace
-
-# IDE - VSCode
-.vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
+.vscode/

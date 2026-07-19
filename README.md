@@ -1,74 +1,106 @@
-# Assets Directory
+# MARQUELMEDIA Assets
 
-This directory contains shared assets used across the MARQUELMEDIA platform, including images, icons, and configuration files.
+Shared, generic/global media assets reused across MARQUELMEDIA properties — the
+marketing site and provisioned client sites alike.
 
-## 📁 Structure
+This repo is **GitHub Pages enabled**, so everything tracked here is served publicly
+from the repo root:
+
+```
+https://marquelmedia.github.io/assets/img/logo.svg
+```
+
+Within a site's own build, the same files are referenced relative to the site root,
+e.g. `/assets/img/logo.svg` or `/assets/img/placeholder-product.png`.
+
+> Keep only genuinely shared, reusable media here. Per-tenant branding lives with the
+> client configuration, not in this repo.
+
+## Structure
 
 ```
 assets/
-├── ci/                    # CI/CD configuration
-│   └── env.ts             # Environment configuration
-├── img/                    # Image assets
-│   ├── devices/           # Device-specific images
-│   ├── stores/            # App store images
-│   └── *.svg, *.png       # Various image files
-├── type/                  # Type definitions
-│   └── emojis.json        # Emoji definitions
-├── package.json           # Dependencies and scripts
-└── yarn.lock              # Dependency lock file
+├── .githooks/
+│   └── pre-commit             # Optimizes staged media + refreshes metadata on commit
+├── .github/workflows/
+│   └── media.yml              # CI: fails if media is unoptimized or metadata is stale
+├── tools/
+│   ├── optimize.ts            # Bun media optimizer (image compression / SVG minify)
+│   ├── variants.ts            # Generates modern-format (WebP) siblings for rasters
+│   └── manifest.ts            # Generates img/manifest.json + CATALOG.md
+├── img/                       # Image assets
+│   ├── devices/
+│   │   └── iphone.png         # iPhone device mockup
+│   ├── stores/
+│   │   ├── app-store.png      # Apple App Store badge
+│   │   └── play-store.png     # Google Play Store badge
+│   ├── logo.svg / logo.png    # Primary MARQUELMEDIA logo (angular "M")
+│   ├── logo-alt.svg           # Alternate logo lockup
+│   ├── mark.svg               # Logo mark only
+│   ├── icon.svg               # General-purpose icon
+│   ├── app-icon.svg           # App icon
+│   ├── type.svg               # Wordmark / type treatment
+│   ├── no.svg                 # No / error / unavailable glyph
+│   ├── ash.gif                # Animated loading indicator
+│   ├── rotate.png             # "Rotate device" indicator
+│   ├── placeholder-product.png# Fallback image for products with no photo
+│   ├── glass.png / pixel.png  # Tiny (1×1 / 2×2) utility pixels used as spacers/overlays
+│   ├── *.webp                 # Generated WebP variants of rasters (opt-in via <picture>)
+│   └── manifest.json          # Generated asset metadata (served publicly)
+├── type/
+│   └── emojis.json            # Emoji definitions / mappings
+├── CATALOG.md                 # Generated visual catalog of every asset
+├── package.json               # Metadata + tooling & git helper scripts
+├── bun.lockb                  # Bun lock file
+├── README.md
+└── TODO.md                    # Tracked future enhancements
 ```
 
-## 🎨 Image Assets
+## Usage
 
-### Logo and Branding
-- **logo.svg** - Main MARQUELMEDIA logo
-- **logo.png** - PNG version of main logo
-- **logo-alt.svg** - Alternative logo version
-- **mark.svg** - Logo mark/icon
-- **icon.svg** - General icon
+- **Reference by path**: from any site, use root-relative paths (`/assets/img/…`) or the
+  public GitHub Pages URL (`https://marquelmedia.github.io/assets/img/…`).
+- **Adding assets**: add only shared/global media; keep filenames lowercase and
+  descriptive. Design sources (e.g. `.psd`) are intentionally kept out of git so the
+  published repo stays lean.
 
-### Device Images
-- **devices/iphone.png** - iPhone device mockup
-- **stores/app-store.png** - Apple App Store badge
-- **stores/play-store.png** - Google Play Store badge
+## Tooling
 
-### UI Elements
-- **glass.png** - Glass effect overlay
-- **pixel.png** - Pixel pattern
-- **rotate.png** - Rotation indicator
-- **ash.gif** - Loading animation
-- **no.svg** - No/error icon
+This repo owns its own Bun-driven maintenance tooling under `tools/` (the shared
+platform tooling in `../tools/` stays focused on tenant builds). There are **no runtime
+dependencies**; the only devDependencies are the media optimizers (`sharp` + `svgo`).
 
-## 🔧 Configuration
+```bash
+bun run optimize          # optimize img/ in place (lossless by default)
+bun run optimize:check    # non-zero exit if anything can still shrink
+bun run variants          # (re)build/prune WebP siblings for rasters
+bun run variants:check    # non-zero exit if a variant is missing/stale/orphaned
+bun run manifest          # (re)generate img/manifest.json + CATALOG.md
+bun run manifest:check    # non-zero exit if metadata is stale
+bun run hooks             # enable the pre-commit hook (core.hooksPath=.githooks)
+bun tools/optimize.ts --lossy   # allow palette PNGs / mozjpeg for extra savings
+```
 
-### CI/CD Configuration
-- **ci/env.ts** - Environment configuration for CI/CD pipelines
+- **Lossless by default** — PNGs are recompressed and SVGs minified with `viewBox`
+  and element ids preserved, so cross-site CSS/JS referencing the markup keeps working.
+- **WebP variants** — for each raster large enough to benefit, `variants.ts` emits a
+  sibling `.webp` (kept only when actually smaller; tiny pixels are skipped). These are
+  purely additive — the original path keeps working, and consumers opt in via
+  `<picture>`/`<source srcset>`. The manifest cross-links each source to its variant.
+- **Pre-commit hook** — `.githooks/pre-commit` optimizes staged media, rebuilds their
+  WebP variants, and refreshes `img/manifest.json` + `CATALOG.md`, re-staging results.
+  Enable it once with `bun run hooks` (also wired via `postinstall` on `bun install`).
+- **CI gate** — `.github/workflows/media.yml` runs `optimize:check` + `variants:check`
+  + `manifest:check` on pushes/PRs, so unoptimized media, missing variants, or stale
+  metadata never land.
+- **Metadata** — `img/manifest.json` (also served publicly) lists every asset's type,
+  size, dimensions, content hash, public URL, and variant links; [`CATALOG.md`](./CATALOG.md)
+  is the human-readable view. Both are generated — never hand-edit them.
 
-### Type Definitions
-- **type/emojis.json** - Emoji definitions and mappings
+Git helper scripts (`pull`, `commit`, `deploy`) are thin Bun/git wrappers for the
+submodule's release flow.
 
-## 📦 Dependencies
+## Related documentation
 
-### Package Management
-- **package.json** - Node.js dependencies and scripts
-- **yarn.lock** - Dependency lock file for consistent installs
-- **bun.lockb** - Bun lock file for fast package management
-
-## 🚀 Usage
-
-### For Developers
-- **Image Assets**: Reference images using relative paths from project root
-- **Configuration**: Use CI configuration for automated builds
-- **Types**: Import emoji definitions for consistent emoji usage
-
-### For Build Tools
-- **Asset Processing**: Images are processed during build
-- **Optimization**: Assets are optimized for production
-- **CDN Integration**: Assets can be served from CDN
-
-## 📚 Related Documentation
-
-- **[Frontend Documentation](../docs/frontend/)** - Frontend asset usage
-- **[Marketing Documentation](../docs/frontend/)** - Marketing site assets
-- **[Build Tools Documentation](../docs/tools/)** - Asset processing tools
-- **[Deployment Documentation](../docs/deployment/)** - Production asset deployment
+- [Frontend Documentation](../docs/frontend/) — how the frontend consumes these assets
+- [Build Tools Documentation](../docs/tools/) — tenant build & branding tooling

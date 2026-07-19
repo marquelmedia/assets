@@ -1,0 +1,21 @@
+name: Media
+
+# Guards the shared, publicly-served assets: fails if any tracked image/vector can
+# still be compressed. Run `bun run optimize` locally and commit the result to fix.
+on:
+  pull_request:
+  push:
+    branches: [development, main]
+
+jobs:
+  optimize-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+      - run: bun install --frozen-lockfile
+      - run: bun run optimize:check
+      - run: bun run variants:check
+      - run: bun run manifest:check

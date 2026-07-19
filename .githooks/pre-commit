@@ -1,0 +1,31 @@
+#!/bin/sh
+# Pre-commit: optimize staged media, then refresh the asset manifest/catalog.
+# Tracked in-repo; enable with `bun run hooks` (sets core.hooksPath=.githooks).
+
+if ! command -v bun >/dev/null 2>&1; then
+  echo "pre-commit: bun not found; skipping media optimization" >&2
+  exit 0
+fi
+
+media=$(git diff --cached --name-only --diff-filter=ACMR | grep -Ei '\.(png|jpe?g|gif|svg)$' || true)
+[ -z "$media" ] && exit 0
+
+# Optimize each staged media file in place, then re-stage it. For rasters, also
+# (re)build the WebP variant and stage the add/update/removal of that sibling.
+printf '%s\n' "$media" | while IFS= read -r f; do
+  [ -f "$f" ] || continue
+  bun tools/optimize.ts --yes "$f" >/dev/null
+  git add -- "$f"
+  case "$f" in
+    *.png | *.jpg | *.jpeg | *.gif)
+      bun tools/variants.ts "$f" >/dev/null
+      git add -A -- "${f%.*}.webp" 2>/dev/null || true
+      ;;
+  esac
+done
+
+# Regenerate + stage metadata so it always tracks the images.
+bun tools/manifest.ts >/dev/null
+git add -- img/manifest.json CATALOG.md 2>/dev/null || true
+
+exit 0

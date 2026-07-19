@@ -1,0 +1,241 @@
+{
+  "assets": [
+    {
+      "path": "img/app-icon.svg",
+      "type": "svg",
+      "bytes": 174,
+      "width": 117,
+      "height": 117,
+      "hash": "84292315fe21",
+      "url": "https://marquelmedia.github.io/assets/img/app-icon.svg"
+    },
+    {
+      "path": "img/ash.gif",
+      "type": "gif",
+      "bytes": 15438,
+      "width": 100,
+      "height": 100,
+      "hash": "e2f3565d8713",
+      "url": "https://marquelmedia.github.io/assets/img/ash.gif",
+      "frames": 4,
+      "variants": [
+        "img/ash.webp"
+      ]
+    },
+    {
+      "path": "img/ash.webp",
+      "type": "webp",
+      "bytes": 14380,
+      "width": 100,
+      "height": 100,
+      "hash": "c56b78a8939b",
+      "url": "https://marquelmedia.github.io/assets/img/ash.webp",
+      "frames": 4,
+      "variantOf": "img/ash.gif"
+    },
+    {
+      "path": "img/devices/iphone.png",
+      "type": "png",
+      "bytes": 31045,
+      "width": 372,
+      "height": 750,
+      "hash": "7d16edd9d4eb",
+      "url": "https://marquelmedia.github.io/assets/img/devices/iphone.png",
+      "variants": [
+        "img/devices/iphone.webp"
+      ]
+    },
+    {
+      "path": "img/devices/iphone.webp",
+      "type": "webp",
+      "bytes": 16900,
+      "width": 372,
+      "height": 750,
+      "hash": "50f258c1a68a",
+      "url": "https://marquelmedia.github.io/assets/img/devices/iphone.webp",
+      "variantOf": "img/devices/iphone.png"
+    },
+    {
+      "path": "img/glass.png",
+      "type": "png",
+      "bytes": 95,
+      "width": 1,
+      "height": 1,
+      "hash": "3eb10792d1f0",
+      "url": "https://marquelmedia.github.io/assets/img/glass.png"
+    },
+    {
+      "path": "img/icon.svg",
+      "type": "svg",
+      "bytes": 174,
+      "width": 117,
+      "height": 117,
+      "hash": "84292315fe21",
+      "url": "https://marquelmedia.github.io/assets/img/icon.svg"
+    },
+    {
+      "path": "img/logo-alt.svg",
+      "type": "svg",
+      "bytes": 245,
+      "width": 1024,
+      "height": 403,
+      "hash": "fd3481e2c47b",
+      "url": "https://marquelmedia.github.io/assets/img/logo-alt.svg"
+    },
+    {
+      "path": "img/logo.png",
+      "type": "png",
+      "bytes": 6385,
+      "width": 1024,
+      "height": 403,
+      "hash": "37ce3ffa0caa",
+      "url": "https://marquelmedia.github.io/assets/img/logo.png",
+      "variants": [
+        "img/logo.webp"
+      ]
+    },
+    {
+      "path": "img/logo.svg",
+      "type": "svg",
+      "bytes": 225,
+      "width": 1024,
+      "height": 1024,
+      "hash": "8a59ebdb05b5",
+      "url": "https://marquelmedia.github.io/assets/img/logo.svg"
+    },
+    {
+      "path": "img/logo.webp",
+      "type": "webp",
+      "bytes": 1830,
+      "width": 1024,
+      "height": 403,
+      "hash": "86290c2d1b4a",
+      "url": "https://marquelmedia.github.io/assets/img/logo.webp",
+      "variantOf": "img/logo.png"
+    },
+    {
+      "path": "img/mark.svg",
+      "type": "svg",
+      "bytes": 174,
+      "width": 117,
+      "height": 117,
+      "hash": "84292315fe21",
+      "url": "https://marquelmedia.github.io/assets/img/mark.svg"
+    },
+    {
+      "path": "img/no.svg",
+      "type": "svg",
+      "bytes": 84,
+      "width": 1,
+      "height": 1,
+      "hash": "e4273e2490f8",
+      "url": "https://marquelmedia.github.io/assets/img/no.svg"
+    },
+    {
+      "path": "img/pixel.png",
+      "type": "png",
+      "bytes": 100,
+      "width": 2,
+      "height": 2,
+      "hash": "08a5a93e82e2",
+      "url": "https://marquelmedia.github.io/assets/img/pixel.png"
+    },
+    {
+      "path": "img/placeholder-product.png",
+      "type": "png",
+      "bytes": 6137,
+      "width": 600,
+      "height": 600,
+      "hash": "360a772f616b",
+      "url": "https://marquelmedia.github.io/assets/img/placeholder-product.png",
+      "variants": [
+        "img/placeholder-product.webp"
+      ]
+    },
+    {
+      "path": "img/placeholder-product.webp",
+      "type": "webp",
+      "bytes": 2152,
+      "width": 600,
+      "height": 600,
+      "hash": "601bb68b0d9a",
+      "url": "https://marquelmedia.github.io/assets/img/placeholder-product.webp",
+      "variantOf": "img/placeholder-product.png"
+    },
+    {
+      "path": "img/rotate.png",
+      "type": "png",
+      "bytes": 4416,
+      "width": 300,
+      "height": 300,
+      "hash": "87522575223f",
+      "url": "https://marquelmedia.github.io/assets/img/rotate.png",
+      "variants": [
+        "img/rotate.webp"
+      ]
+    },
+    {
+      "path": "img/rotate.webp",
+      "type": "webp",
+      "bytes": 1700,
+      "width": 300,
+      "height": 300,
+      "hash": "176c90eba607",
+      "url": "https://marquelmedia.github.io/assets/img/rotate.webp",
+      "variantOf": "img/rotate.png"
+    },
+    {
+      "path": "img/stores/app-store.png",
+      "type": "png",
+      "bytes": 4562,
+      "width": 160,
+      "height": 59,
+      "hash": "e27fe3189eba",
+      "url": "https://marquelmedia.github.io/assets/img/stores/app-store.png",
+      "variants": [
+        "img/stores/app-store.webp"
+      ]
+    },
+    {
+      "path": "img/stores/app-store.webp",
+      "type": "webp",
+      "bytes": 2630,
+      "width": 160,
+      "height": 59,
+      "hash": "56566539cd4b",
+      "url": "https://marquelmedia.github.io/assets/img/stores/app-store.webp",
+      "variantOf": "img/stores/app-store.png"
+    },
+    {
+      "path": "img/stores/play-store.png",
+      "type": "png",
+      "bytes": 5342,
+      "width": 160,
+      "height": 59,
+      "hash": "5689aef356f9",
+      "url": "https://marquelmedia.github.io/assets/img/stores/play-store.png",
+      "variants": [
+        "img/stores/play-store.webp"
+      ]
+    },
+    {
+      "path": "img/stores/play-store.webp",
+      "type": "webp",
+      "bytes": 3806,
+      "width": 160,
+      "height": 59,
+      "hash": "ce68381e5736",
+      "url": "https://marquelmedia.github.io/assets/img/stores/play-store.webp",
+      "variantOf": "img/stores/play-store.png"
+    },
+    {
+      "path": "img/type.svg",
+      "type": "svg",
+      "bytes": 172,
+      "width": 117,
+      "height": 1,
+      "hash": "465b54c3f5c5",
+      "url": "https://marquelmedia.github.io/assets/img/type.svg"
+    }
+  ]
+}
