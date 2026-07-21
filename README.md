@@ -105,7 +105,11 @@ bun tools/optimize.ts --lossy   # allow palette PNGs / mozjpeg for extra savings
   thresholds (line/function ≥ 0.9) are enforced via `bunfig.toml` and run in CI.
 
 Git helper scripts (`pull`, `commit`, `deploy`) are thin Bun/git wrappers for the
-submodule's release flow.
+submodule's release flow. Because GitHub Pages serves this repo from its **`main`**
+branch, asset changes only go live once `main` is advanced from `development`. The
+platform release (`bun run deploy` → `tools/deploy.ts`) does this automatically as its
+"publish source repos" step (alongside `mktg`); running `bun run deploy` here does the
+same thing standalone.
 
 ## Related documentation
 
